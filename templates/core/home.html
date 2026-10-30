@@ -1,0 +1,232 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#180809">
+    <meta name="description" content="Aditya Patel — web developer and graphic designer building thoughtful digital experiences.">
+    <title>Aditya Patel — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <main>
+        <section class="hero" id="home">
+            <header class="topbar">
+                <a class="wordmark" href="#home">Aditya Patel</a>
+                <span class="topbar-note">Graphic designer / Web developer</span>
+            </header>
+            <h1 class="hero-title">Portfolio</h1>
+            <div class="hero-portrait">
+                <img src="{% static 'images/aditya-patel.png' %}" alt="Portrait of Aditya Patel">
+            </div>
+            <a class="availability" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=adityapatelcse16%40gmail.com">
+                <span>Available for</span>
+                <span>new projects</span>
+            </a>
+            <div class="hero-intro">
+                <p class="eyebrow">I'm Aditya Patel</p>
+                <h2>Graphic designer</h2>
+                <p class="role"> &amp; Web developer</p>
+                <p class="intro-copy">I build craft sharp visual identities that are clean, purposeful,  memorable &  fast, responsive websites.</p>
+            </div>
+            <div class="hero-specialty">
+                <p class="specialty-quote">Design that<br>tells your story</p>
+                <ul>
+                    <li>Graphic designer</li>
+                    <li>Web developer</li>
+                </ul>
+            </div>
+            <a class="scroll-cue" href="#services" aria-label="Scroll to services"><span></span></a>
+        </section>
+
+        <section class="services section-light" id="services">
+            <div class="section-heading">
+                <div class="heading-with-mark"><span class="plus">+</span><h2>What I do</h2></div>
+                <p> Graphic design and Web development, backed by hands-on Django training and practical project experience.</p>
+            </div>
+            <div class="service-grid">
+                {% for service in services %}
+                <article class="service-card">
+                    <img src="{{ service.image }}" alt="{{ service.alt }}" loading="lazy">
+                    <span class="card-number">{{ service.number }}</span>
+                    <div class="service-copy">
+                        <h3>{{ service.title }}</h3>
+                        <p>{{ service.description }}</p>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="work" id="work">
+            <div class="section-heading">
+                <h2>Selected work</h2>
+                <p>A selection of graphic design and web development projects.</p>
+            </div>
+            <div class="project-category">
+                <h3>Graphic Design</h3>
+                {% if graphic_design_projects %}
+                <div class="project-grid">
+                    {% for project in graphic_design_projects %}
+                    <a class="project-card{% if project.card_style %} project-card--{{ project.card_style }}{% endif %}" href="{% if project.project_url %}{{ project.project_url }}{% else %}https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ email|urlencode }}&amp;su={{ project.title|urlencode }}{% endif %}"{% if project.project_url %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                        <img src="{{ project.image_url }}" alt="{{ project.image_alt }}" loading="lazy">
+                        <div class="project-copy">
+                            <h3>{{ project.title }}</h3>
+                            <p>{{ project.category }}</p>
+                        </div>
+                        <span class="project-arrow" aria-hidden="true">↗</span>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="project-empty">Graphic design projects will be added here soon.</p>
+                {% endif %}
+            </div>
+            <div class="project-category">
+                <h3>Web Development</h3>
+                {% if web_development_projects %}
+                <div class="project-grid">
+                    {% for project in web_development_projects %}
+                    <a class="project-card{% if project.card_style %} project-card--{{ project.card_style }}{% endif %}" href="{% if project.project_url %}{{ project.project_url }}{% else %}https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ email|urlencode }}&amp;su={{ project.title|urlencode }}{% endif %}"{% if project.project_url %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                        <img src="{{ project.image_url }}" alt="{{ project.image_alt }}" loading="lazy">
+                        <div class="project-copy">
+                            <h3>{{ project.title }}</h3>
+                            <p>{{ project.category }}</p>
+                        </div>
+                        <span class="project-arrow" aria-hidden="true">↗</span>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="project-empty">Web development projects will be added here soon.</p>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="process" id="process">
+            <div class="process-heading">
+                <h2>My Process</h2>
+                <p>A thoughtful approach that's tailored to each project.</p>
+            </div>
+            <div class="process-grid">
+                {% for number, title, description in process %}
+                <article class="process-step">
+                    <span>{{ number }}</span>
+                    <h3>{{ title }}</h3>
+                    <p>{{ description }}</p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        <section class="about" id="about">
+            <div class="about-intro">
+                <h2>About Me</h2>
+                <p>Creative & detail-oriented aspiring fresher with a background in Computer Science & Engineering, with skills in Graphic Design and Web Development. 
+                     A fast learner with practical projects and internship experience, strong communication and problem-solving skills, and the ability to work independently or as part of a team.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-column">
+                    <section class="about-block">
+                        <h3>Skills</h3>
+                        <div class="skill-groups">
+                            {% for group in skill_groups %}
+                            <div class="skill-group">
+                                <h4>{{ group.title }}</h4>
+                                <ul class="skill-list">
+                                    {% for skill in group.skills %}
+                                    <li>{{ skill }}</li>
+                                    {% endfor %}
+                                    {% for software in group.software %}
+                                    <li>{{ software }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+                    <section class="about-block certifications">
+                        <h3>Certifications</h3>
+                        <ul>
+                            {% for certification in certifications %}
+                            <li>{{ certification }}</li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                </div>
+                <section class="about-block experience">
+                    <h3>Experience</h3>
+                    <h4>Intern — Python with Django</h4>
+                    <p class="about-meta">Techpile Technology Pvt. Ltd., Lucknow · Jun – Jul 2025</p>
+                    <p>Completed structured on-the-job training in frontend and backend development, database design, and application frameworks. Contributed to real application modules, met timelines, and collaborated with mentors and teammates.</p>
+                </section>
+                <section class="about-block education">
+                    <h3>Education</h3>
+                    {% for item in education %}
+                    <article class="education-item">
+                        <h4>{{ item.title }}</h4>
+                        <p>{{ item.institution }} <span> {{ item.years }}</span></p>
+                    </article>
+                    {% endfor %}
+                </section>
+            </div>
+        </section>
+        <section class="resume" id="resume">
+            <div class="resume-copy">
+                <p class="eyebrow">A little more about my work</p>
+                <h2>My Resume</h2>
+                <p>Explore my experience, education, and skills in more detail.</p>
+            </div>
+            {% if resume_available %}
+            <a class="resume-button" href="{% static 'files/resume.pdf' %}" target="_blank" rel="noopener" aria-label="View Aditya Patel's resume PDF">
+                View resume <span aria-hidden="true">↗</span>
+            </a>
+            {% else %}
+            <p class="resume-status">Resume PDF coming soon</p>
+            {% endif %}
+        </section>
+        <section class="contact" id="contact">
+            <div class="contact-heading">
+                <h2>Let's Create Something<br><em>Beautiful</em></h2>
+                <a class="contact-availability" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ email|urlencode }}">
+                    <img src="{% static 'images/aditya-patel.png' %}" alt="">
+                    <span><i></i> Currently available<br><strong>For new projects</strong></span>
+                </a>
+            </div>
+            <div class="contact-details">
+                <div class="contact-detail">
+                    <h3>Get in touch</h3>
+                    <a class="contact-link" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ email|urlencode }}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>
+                        {{ email }}
+                    </a>
+                    <a class="contact-link" href="tel:+918081146683">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2c0 8.84 7.16 16 16 16a2 2 0 0 0 2-2v-3l-5-2-2 3a14 14 0 0 1-6-6l3-2-2-5Z"></path></svg>
+                        {{ phone }}
+                    </a>
+                    <a class="contact-link" href="https://wa.me/918081146683" target="_blank" rel="noopener noreferrer">
+                        <svg class="contact-icon--whatsapp" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Z"></path><path class="icon-mark" d="M8.2 7.2c-.3 0-.7.1-.9.5-.3.4-1.1 1.1-1.1 2.7s1.1 3.1 1.2 3.3c.2.2 2.2 3.5 5.4 4.5 2.7.8 3.2.7 3.8.6.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.7-.4l-2.2-1.1c-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.3-.7.1-.4-.2-1.5-.6-2.8-1.8-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6l-1-2.3c-.2-.5-.4-.5-.7-.5Z"></path></svg>
+                        WhatsApp
+                    </a>
+                    <a class="contact-link" href="https://www.linkedin.com/in/adityapatel16/" target="_blank" rel="noopener noreferrer">
+                        <svg class="contact-icon--linkedin" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="3"></rect><path class="icon-mark" d="M6 9h3v10H6zm1.5-4a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4ZM11 9h2.9v1.4h.1a3.2 3.2 0 0 1 2.9-1.6c3.1 0 3.7 2 3.7 4.6V19h-3v-5c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V19h-3V9Z"></path></svg>
+                        LinkedIn
+                    </a>
+                    <a class="contact-button" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ email|urlencode }}">Let's work together</a>
+                </div>
+                <div class="contact-detail">
+                    <h3>Location</h3>
+                    <p>{{ location }}</p>
+                </div>
+            </div>
+        </section>
+        <footer class="footer">
+            <p>© {% now "Y" %} Aditya Patel</p>
+            <p>graphic designer &amp; web developer </p>
+        </footer>
+    </main>
+</body>
+</html>
